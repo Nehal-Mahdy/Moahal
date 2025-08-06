@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp URL Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-md mx-auto bg-white rounded-lg shadow-md p-6">
+        <h1 class="text-2xl font-bold mb-6 text-center text-green-600">🔧 اختبار رابط الواتساب</h1>
+        
+        <div class="space-y-4">
+            <div class="bg-blue-50 p-4 rounded-lg">
+                <h3 class="font-bold text-blue-800 mb-2">رقم الواتساب:</h3>
+                <code class="bg-white p-2 rounded text-sm block" id="phone-number">201282973213</code>
+            </div>
+            
+            <div class="bg-green-50 p-4 rounded-lg">
+                <h3 class="font-bold text-green-800 mb-2">رسالة تجريبية:</h3>
+                <textarea id="test-message" class="w-full p-2 border rounded text-sm" rows="6">🛍️ *طلب منتج جديد*
+
+📦 *المنتج:* نظام رفع تلفزيون كهربائي
+🔗 *رابط المنتج:* https://example.com/product
+
+👤 *بيانات العميل:*
+الاسم: أحمد محمد  
+الهاتف: 0512345678
+
+📊 *الكمية:* 1-5 قطع
+🏙️ *المدينة:* الرياض
+🚚 *طريقة الشحن:* شحن سريع
+
+📅 *تاريخ الطلب:* ${new Date().toLocaleDateString('ar-SA')}
+⏰ *وقت الطلب:* ${new Date().toLocaleTimeString('ar-SA')}</textarea>
+            </div>
+            
+            <div class="space-y-3">
+                <button onclick="testWhatsAppURL()" class="w-full bg-green-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-green-700 transition-colors">
+                    🧪 اختبار رابط الواتساب
+                </button>
+                
+                <button onclick="generateAndCopyURL()" class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                    📋 نسخ الرابط للحافظة
+                </button>
+            </div>
+            
+            <div id="result" class="hidden bg-gray-50 p-4 rounded-lg">
+                <h3 class="font-bold mb-2">نتيجة الاختبار:</h3>
+                <div id="result-content" class="text-sm"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function testWhatsAppURL() {
+            const phoneNumber = document.getElementById('phone-number').textContent;
+            const message = document.getElementById('test-message').value;
+            
+            // Clean the phone number
+            const cleanNumber = phoneNumber.replace(/[\s\+\-\(\)]/g, '');
+            
+            // Encode the message
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Create WhatsApp URL
+            const whatsappUrl = `https://wa.me/${cleanNumber}?text=${encodedMessage}`;
+            
+            // Show result
+            showResult(`
+                <div class="space-y-2">
+                    <div><strong>رقم مُنظف:</strong> <code class="bg-white p-1 rounded">${cleanNumber}</code></div>
+                    <div><strong>الرابط:</strong> <code class="bg-white p-1 rounded text-xs break-all">${whatsappUrl.substring(0, 100)}...</code></div>
+                    <div class="text-green-600"><strong>✅ جاري فتح الواتساب...</strong></div>
+                </div>
+            `);
+            
+            // Log to console
+            console.log('🔧 WHATSAPP TEST:');
+            console.log('Clean Number:', cleanNumber);
+            console.log('Full URL:', whatsappUrl);
+            console.log('Message Length:', message.length);
+            console.log('Encoded Length:', encodedMessage.length);
+            
+            // Try to open WhatsApp
+            try {
+                const opened = window.open(whatsappUrl, '_blank');
+                
+                if (!opened || opened.closed || typeof opened.closed == 'undefined') {
+                    console.log('Popup blocked, trying alternative method...');
+                    const tempLink = document.createElement('a');
+                    tempLink.href = whatsappUrl;
+                    tempLink.target = '_blank';
+                    tempLink.rel = 'noopener noreferrer';
+                    document.body.appendChild(tempLink);
+                    tempLink.click();
+                    document.body.removeChild(tempLink);
+                }
+                
+                setTimeout(() => {
+                    showResult(`
+                        <div class="space-y-2">
+                            <div><strong>رقم مُنظف:</strong> <code class="bg-white p-1 rounded">${cleanNumber}</code></div>
+                            <div><strong>الرابط:</strong> <code class="bg-white p-1 rounded text-xs break-all">${whatsappUrl.substring(0, 100)}...</code></div>
+                            <div class="text-green-600"><strong>✅ تم فتح الواتساب بنجاح!</strong></div>
+                            <div class="text-sm text-gray-600">إذا لم يفتح الواتساب، انسخ الرابط واستخدمه يدوياً</div>
+                        </div>
+                    `);
+                }, 1000);
+                
+            } catch (error) {
+                console.error('Error opening WhatsApp:', error);
+                showResult(`
+                    <div class="space-y-2">
+                        <div class="text-red-600"><strong>❌ خطأ في فتح الواتساب:</strong></div>
+                        <div class="text-sm">${error.message}</div>
+                        <div class="text-sm text-gray-600">جرب نسخ الرابط واستخدامه يدوياً</div>
+                    </div>
+                `);
+            }
+        }
+        
+        function generateAndCopyURL() {
+            const phoneNumber = document.getElementById('phone-number').textContent;
+            const message = document.getElementById('test-message').value;
+            
+            const cleanNumber = phoneNumber.replace(/[\s\+\-\(\)]/g, '');
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${cleanNumber}?text=${encodedMessage}`;
+            
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(whatsappUrl).then(() => {
+                    showResult(`
+                        <div class="space-y-2">
+                            <div class="text-green-600"><strong>✅ تم نسخ الرابط إلى الحافظة!</strong></div>
+                            <div class="text-sm">الصق الرابط في المتصفح لاختباره</div>
+                            <div class="text-xs bg-white p-2 rounded break-all">${whatsappUrl.substring(0, 150)}...</div>
+                        </div>
+                    `);
+                });
+            } else {
+                showResult(`
+                    <div class="space-y-2">
+                        <div class="text-yellow-600"><strong>⚠️ لا يمكن النسخ التلقائي</strong></div>
+                        <div class="text-sm">انسخ الرابط يدوياً:</div>
+                        <textarea class="w-full p-2 text-xs border rounded" rows="3" readonly>${whatsappUrl}</textarea>
+                    </div>
+                `);
+            }
+        }
+        
+        function showResult(content) {
+            const resultDiv = document.getElementById('result');
+            const resultContent = document.getElementById('result-content');
+            
+            resultContent.innerHTML = content;
+            resultDiv.classList.remove('hidden');
+        }
+        
+        // Update the message with current date/time
+        window.addEventListener('load', function() {
+            const messageTextarea = document.getElementById('test-message');
+            let message = messageTextarea.value;
+            message = message.replace('${new Date().toLocaleDateString(\'ar-SA\')}', new Date().toLocaleDateString('ar-SA'));
+            message = message.replace('${new Date().toLocaleTimeString(\'ar-SA\')}', new Date().toLocaleTimeString('ar-SA'));
+            messageTextarea.value = message;
+        });
+    </script>
+</body>
+</html>

@@ -2,6 +2,9 @@
     $title           = get_field('title');
     $subHeading     = get_field('sub_heading');
     $steps           = get_field('steps');
+    $cta_btn_text= get_field('section_cta_button_text');
+    $cta_btn_link= get_field('section_cta_button_url');
+    $cta_btn_class= get_field('section_cta_button_class');
   ?>
 
   
@@ -640,15 +643,28 @@ endforeach; ?>
 
 
         <div class="flex justify-center items-center z-10 py-12">
-          <button
-            class="flex items-center justify-center p-4 md:p-6 gap-3 rounded-lg bg-[#3773C9] text-[#EBF1FA] text-right md:text-[28px] text-base font-bold leading-[42px] font-[Cairo] hover:bg-[#00796B] transition-all duration-700 ease-in-out how-we-work-cta-btn">
-             تواصل معنا واستفد من خبرات فريقنا
+        
+        <a href="<?php echo $cta_btn_link ?: '#';?>">
+        <button
+            class=" flex items-center justify-center p-4 md:p-6 gap-3 rounded-lg bg-[#3773C9] text-[#EBF1FA] text-right md:text-[28px] text-base font-bold leading-[42px] font-[Cairo] hover:bg-[#00796B] transition-all duration-700 ease-in-out <?php echo $cta_btn_class ?: 'how-we-work-cta-btn'; ?> ">
+            
+            <!-- <?php
+if (isset($cta_btn_text) && !empty($cta_btn_text)) {
+    echo $cta_btn_text;
+} else {
+    echo "تواصل معنا واستفد من خبرات فريقنا";
+}?>   -->
+<?php echo $cta_btn_text ?: 'تواصل معنا واستفد من خبرات فريقنا'; ?>
+    
           <svg xmlns="http://www.w3.org/2000/svg" class="md:w-10 md:h-10 w-6 h-6" viewBox="0 0 33 32" fill="none">
             <path fill-rule="evenodd" clip-rule="evenodd"
               d="M25.8337 4C26.8945 4 27.9119 4.42143 28.6621 5.17157C29.4122 5.92172 29.8337 6.93913 29.8337 8V21.3333C29.8337 22.3942 29.4122 23.4116 28.6621 24.1618C27.9119 24.9119 26.8945 25.3333 25.8337 25.3333H10.2777L5.83366 28.6667C4.73499 29.4907 3.16699 28.7067 3.16699 27.3333V8C3.16699 6.93913 3.58842 5.92172 4.33857 5.17157C5.08871 4.42143 6.10613 4 7.16699 4H25.8337ZM15.167 16H11.167C10.8134 16 10.4742 16.1405 10.2242 16.3905C9.97413 16.6406 9.83366 16.9797 9.83366 17.3333C9.83366 17.687 9.97413 18.0261 10.2242 18.2761C10.4742 18.5262 10.8134 18.6667 11.167 18.6667H15.167C15.5206 18.6667 15.8598 18.5262 16.1098 18.2761C16.3598 18.0261 16.5003 17.687 16.5003 17.3333C16.5003 16.9797 16.3598 16.6406 16.1098 16.3905C15.8598 16.1405 15.5206 16 15.167 16ZM21.8337 10.6667H11.167C10.8272 10.667 10.5003 10.7972 10.2532 11.0305C10.0061 11.2638 9.85735 11.5826 9.83743 11.9219C9.81751 12.2611 9.92789 12.5952 10.146 12.8558C10.3641 13.1164 10.6735 13.2839 11.011 13.324L11.167 13.3333H21.8337C22.1735 13.333 22.5004 13.2028 22.7475 12.9695C22.9946 12.7362 23.1433 12.4174 23.1632 12.0781C23.1831 11.7389 23.0728 11.4048 22.8546 11.1442C22.6365 10.8836 22.3271 10.7161 21.9897 10.676L21.8337 10.6667Z"
               fill="#EBF1FA" />
           </svg>
           </button>
+
+
+          </a>
         </div>
 
     </section>

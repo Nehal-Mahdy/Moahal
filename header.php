@@ -224,7 +224,7 @@ if ($notifications):
         <?php
 $notifications = get_field('site_notifications', 'option');
 
-        if ($notifications):
+        if ($notifications && count($notifications) > 0):
 
 ?>
   <?php foreach ($notifications as $note): ?>
@@ -351,6 +351,19 @@ $notifications = get_field('site_notifications', 'option');
       </div>
     </div>
   <?php endforeach; ?>
+
+<?php else: ?>
+  <div class="flex flex-col items-center justify-center h-full py-16">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 mb-4 text-blue-100" fill="none" viewBox="0 0 48 48">
+        <circle cx="24" cy="24" r="22" stroke="#E5E7EB" stroke-width="3" fill="#F3F4F6"/>
+        <path d="M24 16v8m0 4h.01" stroke="#3773C9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <p class="text-[#3773C9] text-xl font-semibold mt-2">لا توجد تنبيهات حالياً</p>
+    <span class="text-gray-400 text-sm mt-1">تابعنا لمعرفة آخر التنبيهات والإعلانات</span>
+</div>
+  
+
+
 <?php endif; ?>
 
 

@@ -29,6 +29,7 @@ module.exports = {
       },
       fontFamily: {
         cairo: ["Cairo", "sans-serif"], 
+        roboto: ["Roboto", "sans-serif"],
       },
     },
   },

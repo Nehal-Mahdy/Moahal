@@ -43,8 +43,8 @@
       </svg>
   
       <p class="text-[#19345A] text-[20px] mob:text-[18px] font-medium w-3/5 mob:w-full">
-        الرياض، المملكة العربية السعودية
-      </p>
+      AL NADHEEM DISTR, RIYDAH ,SAUDI ARABIA
+          </p>
     </div>
     <div class="flex flex-row gap-3 items-center ">
       <svg xmlns="http://www.w3.org/2000/svg" class="md:w-8 md:h-8 w-6 h-6" viewBox="0 0 32 32" fill="none">
@@ -83,7 +83,7 @@
       
     <div class="pt-8 flex flex-row gap-[22px]  mob:gap-4">
     
-      <a href="#" class="">
+      <a href="https://www.snapchat.com/add/ecommercegroup?share_id=ObOHFWWWeHE&locale=en-GB" target="_blank" class="">
         <svg xmlns="http://www.w3.org/2000/svg" class="md:w-12 md:h-12 w-8 h-8" viewBox="0 0 50 51" fill="none">
           <path
             d="M24.9431 0.5H25.0569C38.8239 0.5 50 11.6761 50 25.4431V25.5569C50 39.3239 38.8239 50.5 25.0569 50.5H24.9431C11.1761 50.5 0 39.3239 0 25.5569V25.4431C0 11.6761 11.1761 0.5 24.9431 0.5Z"
@@ -150,7 +150,7 @@
         </svg>
       </a>
     
-      <a href="#" class="">
+      <a href="https://api.whatsapp.com/message/YAUXKFUB5U5AJ1?autoload=1&app_absent=0" target="_blank" class="">
         <svg xmlns="http://www.w3.org/2000/svg" class="md:w-12 md:h-12 w-8 h-8" viewBox="0 0 50 51" fill="none">
           <path
             d="M25.0569 0.5H24.9431C11.1674 0.5 0 11.6674 0 25.4431V25.5569C0 39.3326 11.1674 50.5 24.9431 50.5H25.0569C38.8326 50.5 50 39.3326 50 25.5569V25.4431C50 11.6674 38.8326 0.5 25.0569 0.5Z"
@@ -164,6 +164,12 @@
         </svg>
       </a>
     
+      <a href="#" target="_blank" class="">
+       
+        <svg class="md:w-12 md:h-12 w-8 h-8" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 473.931 473.931" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <circle style="fill:#4A86C5;" cx="236.966" cy="236.966" r="236.966"></circle> <path style="fill:#3D80B2;" d="M404.518,69.383c92.541,92.549,92.549,242.59,0,335.138c-92.541,92.541-242.593,92.541-335.134,0 L404.518,69.383z"></path> <path style="fill:#4A86C5;" d="M462.646,309.275c0.868-2.713,1.658-5.456,2.432-8.206 C464.307,303.823,463.496,306.562,462.646,309.275z"></path> <g> <polygon style="fill:#377CA5;" points="465.097,301.017 465.097,301.017 465.082,301.07 "></polygon> <path style="fill:#377CA5;" d="M465.097,301.017L336.721,172.641l-29.204,29.204l-20.303-20.303l-16.946,16.946L171.032,99.25 l-6.155-2.346l-38.08,38.08l45.968,45.964l-44.998,44.995l43.943,43.943l-48.048,48.052L276.475,470.59 c87.984-14.78,159.5-77.993,186.175-161.311c0.849-2.716,1.658-5.452,2.432-8.206C465.082,301.055,465.09,301.032,465.097,301.017z "></path> </g> <path style="fill:#FFFFFF;" d="M358.565,230.459v87.883h-50.944v-81.997c0-20.595-7.375-34.656-25.811-34.656 c-14.084,0-22.458,9.474-26.147,18.634c-1.343,3.278-1.688,7.835-1.688,12.423v85.593H203.02c0,0,0.681-138.875,0-153.259h50.952 V186.8c-0.094,0.161-0.236,0.34-0.329,0.498h0.329V186.8c6.769-10.425,18.862-25.324,45.923-25.324 C333.432,161.479,358.565,183.384,358.565,230.459z M149.7,91.198c-17.429,0-28.838,11.439-28.838,26.473 c0,14.716,11.072,26.495,28.164,26.495h0.344c17.766,0,28.823-11.779,28.823-26.495C177.857,102.636,167.137,91.198,149.7,91.198z M123.886,318.341h50.944V165.083h-50.944V318.341z"></path> </g></svg>
+
+      </a>
+
     </div>
       </div>
 
@@ -201,41 +207,41 @@
               </p>
               <ul class="mob:hidden mt-6 space-y-4 text-[20px] text-[#445A73]">
                 <li>
-                  <a href="#samples" class=" transition hover:opacity-75">طلب العينات </a>
+                  <a href="#samples" class="service-link transition hover:opacity-75">طلب العينات </a>
                 </li>
             
                 <li>
-                  <a href="#visits" class=" transition hover:opacity-75">زيارة المصانع </a>
+                  <a href="#visits" class="service-link transition hover:opacity-75">زيارة المصانع </a>
                 </li>
             
                 <li>
-                  <a href="#imports" class=" transition hover:opacity-75"> استيراد المنتجات </a>
+                  <a href="#imports" class="service-link transition hover:opacity-75"> استيراد المنتجات </a>
                 </li>
             
                 <li>
-                  <a href="#customs" class=" transition hover:opacity-75"> التخليص الجمركي</a>
+                  <a href="#customs" class="service-link transition hover:opacity-75"> التخليص الجمركي</a>
                 </li>
             
                 <li>
-                  <a href="#certificates" class=" transition hover:opacity-75">  الشهادات والمواصفات شهادات سابر والمطابقة </a>
+                  <a href="#certificates" class="service-link transition hover:opacity-75">  الشهادات والمواصفات شهادات سابر والمطابقة </a>
                 </li>
             
             
                 <li>
-                  <a href="#transfer" class=" transition hover:opacity-75"> النقل الداخلي</a>
+                  <a href="#transfer" class="service-link transition hover:opacity-75"> النقل الداخلي</a>
                 </li>
             
                 <li>
-                  <a href="#prices" class=" transition hover:opacity-75"> خدمة عروض الأسعار </a>
+                  <a href="#prices" class="service-link transition hover:opacity-75"> خدمة عروض الأسعار </a>
                 </li>
 
                  <li>
-                  <a href="#sign" class=" transition hover:opacity-75"> خدمة التسجيل في هيئه الدواء والغذاء </a>
+                  <a href="#sign" class="service-link transition hover:opacity-75"> خدمة التسجيل في هيئه الدواء والغذاء </a>
                 </li>
 
 
                  <li>
-                  <a href="#shipping" class=" transition hover:opacity-75">خدمة الشحن الدولي   </a>
+                  <a href="#shipping" class="service-link transition hover:opacity-75">خدمة الشحن الدولي   </a>
                 </li>
 
                

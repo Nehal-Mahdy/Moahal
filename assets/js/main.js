@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
   const sections = document.querySelectorAll("section");
   const navbar = document.querySelector("nav");
   const navbarHeight = navbar ? navbar.offsetHeight + 20 : 100;
+  const serviceLinks = document.querySelectorAll(".service-link");
   function removeActiveClasses() {
     navLinks.forEach((link) => link.classList.remove("active"));
     mobileNavLinks.forEach((link) => link.classList.remove("active-mob-nav"));
@@ -34,6 +35,16 @@ document.addEventListener("DOMContentLoaded", function() {
   function isHomePage() {
     return window.location.pathname === "/moahal/wordpress/" || window.location.pathname === "/index.php";
   }
+  serviceLinks.forEach((link) => {
+    link.addEventListener("click", function(e) {
+      console.log("Service link clicked");
+      const targetId = this.getAttribute("href").substring(1);
+      if (!isHomePage()) {
+        window.location.href = "/moahal/wordpress/#" + targetId;
+        return;
+      }
+    });
+  });
   navLinks.forEach((link) => {
     link.addEventListener("click", function(e) {
       if (isHomePage() && this.getAttribute("href").includes("#")) {
@@ -101,6 +112,9 @@ document.addEventListener("DOMContentLoaded", function() {
   });
   function setActiveNav() {
     var _a2, _b2;
+    if (!isHomePage()) {
+      return;
+    }
     const isMobile = window.innerWidth <= 768;
     const offset = isMobile ? navbarHeight + 50 : navbarHeight;
     const scrollPosition = window.scrollY + offset + 5;

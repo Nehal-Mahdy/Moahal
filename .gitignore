@@ -28,4 +28,15 @@ doc/
 .project
 .DS_Store
 .idea
+.vscode
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Build files that shouldn't be in the repo
+.cache/
+dist/
+build/
 .secret

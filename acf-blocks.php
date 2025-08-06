@@ -105,13 +105,87 @@ acf_register_block_type(array(
 		'category'          => 'formatting',
 		'mode'              => 'edit',
 		'icon'              => 'gala:editor',
-		'keywords'          => array('Who-is-us-hero', 'Home'),
+		'keywords'          => array('Who-is-us-hero', 'Home' ),
 	));
 
 
-}
+    acf_register_block_type(array(
+		'name'              => 'Who-is-us-welcome-block',
+		'title'             => __('Moahal Who-is-us-welcome Section'),
+		'description'       => __('A Who-is-us-welcome block.'),
+		'render_template'   => 'template-parts/blocks/who-is-us-page/welcome-section-block.php',
+		'category'          => 'formatting',
+		'mode'              => 'edit',
+		'icon'              => 'gala:editor',
+		'keywords'          => array('Who-is-us-welcome', 'Home'),
+	));
+
+      acf_register_block_type(array(
+		'name'              => 'Who-is-us-vision-block',
+		'title'             => __('Moahal Who-is-us-vision Section'),
+		'description'       => __('A Who-is-us-vision block.'),
+		'render_template'   => 'template-parts/blocks/who-is-us-page/vision-section-block.php',
+		'category'          => 'formatting',
+		'mode'              => 'edit',
+		'icon'              => 'gala:editor',
+		'keywords'          => array('Who-is-us-vision', 'Home'),
+	));
+
+
+     acf_register_block_type(array(
+		'name'              => 'Who-is-us-message-block',
+		'title'             => __('Moahal Who-is-us-message Section'),
+		'description'       => __('A Who-is-us-message block.'),
+		'render_template'   => 'template-parts/blocks/who-is-us-page/message-section-block.php',
+		'category'          => 'formatting',
+		'mode'              => 'edit',
+		'icon'              => 'gala:editor',
+		'keywords'          => array('Who-is-us-message', 'Home'),
+	));
+
+
+     acf_register_block_type(array(
+		'name'              => 'Who-is-us-value-block',
+		'title'             => __('Moahal Who-is-us-value Section'),
+		'description'       => __('A Who-is-us-value block.'),
+		'render_template'   => 'template-parts/blocks/who-is-us-page/value-section-block.php',
+		'category'          => 'formatting',
+		'mode'              => 'edit',
+		'icon'              => 'gala:editor',
+		'keywords'          => array('Who-is-us-value', 'Home'),
+	));
+
+
+// shipping prices page blocks
+	acf_register_block_type(array(
+		'name'              => 'Shipping-prices-hero-block',
+		'title'             => __('Moahal Shipping-prices-hero Section'),
+		'description'       => __('A Shipping-prices-hero block.'),
+		'render_template'   => 'template-parts/blocks/shipping-prices-page/hero-block.php',
+		'category'          => 'formatting',
+		'mode'              => 'edit',
+		'icon'              => 'gala:editor',
+		'keywords'          => array('Shipping-prices-hero', 'Home' ),
+	));
+
+	acf_register_block_type(array(
+		'name'              => 'Shipping-prices-ports-options-block',
+		'title'             => __('Moahal Shipping-prices-ports-options Section'),
+		'description'       => __('A Shipping-prices-ports-options block.'),
+		'render_template'   => 'template-parts/blocks/shipping-prices-page/shipping-ports-options-block.php',
+		'category'          => 'formatting',
+		'mode'              => 'edit',
+		'icon'              => 'gala:editor',
+		'keywords'          => array('Shipping-prices-ports-options', 'Home' ),
+	));
+
+	}
+
+
 
 }
+
+
 
 // Register options page for Notifications
 if (function_exists('acf_add_options_page')) {

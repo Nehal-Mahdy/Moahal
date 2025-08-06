@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const navbar = document.querySelector('nav');
   const navbarHeight = navbar ? navbar.offsetHeight + 20 : 100; // Extra padding
 
+  const serviceLinks =document.querySelectorAll('.service-link');
   // Function to remove 'active' from all links (both mobile and desktop)
   function removeActiveClasses() {
     navLinks.forEach((link) => link.classList.remove('active'));
@@ -43,6 +44,21 @@ document.addEventListener('DOMContentLoaded', function () {
  function isHomePage() {
     return window.location.pathname === '/moahal/wordpress/' || window.location.pathname === '/index.php'; 
   }
+
+  // smooth scrolling on click for service links
+  serviceLinks.forEach((link) => {
+    
+    link.addEventListener('click', function (e) {
+      console.log("Service link clicked"); // Debugging line
+      
+      const targetId = this.getAttribute('href').substring(1);
+      if (!isHomePage()) {
+        window.location.href = '/moahal/wordpress/' + '#' + targetId;
+        return;
+      }
+     
+    });
+  });
 
   // Smooth scrolling on click for desktop navigation
   navLinks.forEach((link) => {
@@ -130,6 +146,9 @@ if (isHomePage() && this.getAttribute('href').includes('#')) {
 
   // Detect scroll and highlight active menu item (both desktop and mobile)
   function setActiveNav() {
+     if (!isHomePage()) {
+       return; // Skip if not on the home page
+    }
     const isMobile = window.innerWidth <= 768;
     const offset = isMobile ? navbarHeight + 50 : navbarHeight; // Match scroll offset in clicks
     const scrollPosition = window.scrollY + offset + 5; // Small buffer to avoid edge misfires

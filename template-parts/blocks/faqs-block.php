@@ -3,6 +3,9 @@
      $title           = get_field('title');
     $description     = get_field('description');
     $faqs= get_field('faqs');
+    $cta_btn_text= get_field('section_cta_button_text');
+    $cta_btn_link= get_field('section_cta_button_url');
+    $cta_btn_class= get_field('section_cta_button_class');
   ?>
   
   <section id="faqs" class=" mt-24">
@@ -267,17 +270,24 @@ if ($faqs): // Check if there are any FAQs
 
 
 <div class="flex justify-center items-center py-20 px-16 mob:px-4">
-  <button
-    class="flex items-center justify-center p-4 md:p-6 gap-3 rounded-lg bg-[#3773C9] text-[#EBF1FA] text-right md:text-[28px] text-lg font-bold leading-[42px] font-[Cairo] hover:bg-[#00796B] transition-all duration-700 ease-in-out faqs-cta-btn">
-    لم تجد إجابتك؟ تواصل معنا الآن   
+<a href="<?php echo $cta_btn_link ?: '#';?>">
+<button
+    class="flex items-center justify-center p-4 md:p-6 gap-3 rounded-lg bg-[#3773C9] text-[#EBF1FA] text-right md:text-[28px] text-lg font-bold leading-[42px] font-[Cairo] hover:bg-[#00796B] transition-all duration-700 ease-in-out <?php echo $cta_btn_class ?: 'faqs-cta-btn'; ?> ">
  
-
+    <?php
+if (isset($cta_btn_text) && !empty($cta_btn_text)) {
+    echo $cta_btn_text;
+} else {
+    echo " لم تجد إجابتك؟ تواصل معنا الآن";
+}?>  
+    
     <svg xmlns="http://www.w3.org/2000/svg" class="md:w-8 md:h-8 w-6 h-6" viewBox="0 0 32 32" fill="none">
       <path fill-rule="evenodd" clip-rule="evenodd"
         d="M25.3337 4C26.3945 4 27.4119 4.42143 28.1621 5.17157C28.9122 5.92172 29.3337 6.93913 29.3337 8V21.3333C29.3337 22.3942 28.9122 23.4116 28.1621 24.1618C27.4119 24.9119 26.3945 25.3333 25.3337 25.3333H9.77766L5.33366 28.6667C4.23499 29.4907 2.66699 28.7067 2.66699 27.3333V8C2.66699 6.93913 3.08842 5.92172 3.83857 5.17157C4.58871 4.42143 5.60613 4 6.66699 4H25.3337ZM14.667 16H10.667C10.3134 16 9.97423 16.1405 9.72418 16.3905C9.47413 16.6406 9.33366 16.9797 9.33366 17.3333C9.33366 17.687 9.47413 18.0261 9.72418 18.2761C9.97423 18.5262 10.3134 18.6667 10.667 18.6667H14.667C15.0206 18.6667 15.3598 18.5262 15.6098 18.2761C15.8598 18.0261 16.0003 17.687 16.0003 17.3333C16.0003 16.9797 15.8598 16.6406 15.6098 16.3905C15.3598 16.1405 15.0206 16 14.667 16ZM21.3337 10.6667H10.667C10.3272 10.667 10.0003 10.7972 9.75317 11.0305C9.50605 11.2638 9.35735 11.5826 9.33743 11.9219C9.31751 12.2611 9.42789 12.5952 9.64601 12.8558C9.86413 13.1164 10.1735 13.2839 10.511 13.324L10.667 13.3333H21.3337C21.6735 13.333 22.0004 13.2028 22.2475 12.9695C22.4946 12.7362 22.6433 12.4174 22.6632 12.0781C22.6831 11.7389 22.5728 11.4048 22.3546 11.1442C22.1365 10.8836 21.8271 10.7161 21.4897 10.676L21.3337 10.6667Z"
         fill="#EBF1FA" />
     </svg>
   </button>
+  </a> 
 </div>
 
     </section>

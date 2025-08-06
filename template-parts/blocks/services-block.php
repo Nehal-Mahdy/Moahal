@@ -108,11 +108,12 @@ if (!empty($services)) :
     $service_steps = $service['service_steps'];
     $service_sub_text = $service['service_sub_text'];
     $service_cta_button_id = $service['service_cta_button_id'];
+    $service_id = $service['service_id'];
 ?>
     <div
-      class="gap-6 md:gap-8 mob:gap-4 flex flex-row mob:flex-col <?php echo $index % 2 === 0 ? '' : 'mob:flex-col-reverse'; ?> rounded-xl border border-[#3773C9] py-[10px] px-3 w-full"
+      class=" scroll-m-24 gap-6 md:gap-8 mob:gap-4 flex flex-row mob:flex-col <?php echo $index % 2 === 0 ? '' : 'mob:flex-col-reverse'; ?> rounded-xl border border-[#3773C9] py-[10px] px-3 w-full"
       data-aos="<?php echo $index % 2 === 0 ? 'fade-left' : 'fade-right'; ?>"
-      
+      id="<?php echo $service_id; ?>"
     >
    <?php if ($index % 2 === 0) : ?>
  <img

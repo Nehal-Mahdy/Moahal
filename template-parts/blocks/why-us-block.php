@@ -1,7 +1,9 @@
  <?php
  $title = get_field('title');
     $reasons = get_field('reasons');
-
+    $cta_btn_text= get_field('section_cta_button_text');
+    $cta_btn_link= get_field('section_cta_button_url');
+    $cta_btn_class= get_field('section_cta_button_class');
  ?>
  
  <section id="why-us" class="bg-white relative overflow-hidden mb-16 md:py-16">
@@ -274,10 +276,18 @@ if ($reasons):
       </div>
 
       <div class="flex justify-center items-center z-10">
+        <a href="<?php echo $cta_btn_link ?: '#';?>">
         <button
-          class="flex items-center justify-center p-4 md:p-6 gap-3 rounded-lg bg-[#3773C9] text-[#EBF1FA] text-right md:text-[28px] text-lg font-bold leading-[42px] font-[Cairo] hover:bg-[#00796B] transition-all duration-700 ease-in-out why-us-cta-btn"
+          class="flex items-center justify-center p-4 md:p-6 gap-3 rounded-lg bg-[#3773C9] text-[#EBF1FA] text-right md:text-[28px] text-lg font-bold leading-[42px] font-[Cairo] hover:bg-[#00796B] transition-all duration-700 ease-in-out <?php echo $cta_btn_class ?: 'why-us-cta-btn'; ?> "
         >
-         ابدأ استيرادك الآن مع خبراء مؤهل
+
+                     
+         <?php
+if (isset($cta_btn_text) && !empty($cta_btn_text)) {
+    echo $cta_btn_text;
+} else {
+           echo " ابدأ استيرادك الآن مع خبراء مؤهل";
+}?>  
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="md:w-10 md:h-10 w-8 h-8"
@@ -292,6 +302,7 @@ if ($reasons):
             />
           </svg>
         </button>
+        </a>
       </div>
 
       
