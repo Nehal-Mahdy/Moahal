@@ -28,7 +28,7 @@ jobs:
           if [ -f "composer.json" ]; then
             composer install --no-dev --optimize-autoloader
           fi
-          
+
       - name: Build assets (if using npm/yarn)
         run: |
           if [ -f "package.json" ]; then

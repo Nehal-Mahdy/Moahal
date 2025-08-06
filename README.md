@@ -14,11 +14,11 @@ For the deployment pipeline to work, you need to add the following secrets to yo
 2. Click on "Settings" > "Secrets and variables" > "Actions"
 3. Add the following secrets:
 
-| Secret Name | Description |
-|-------------|-------------|
-| `FTP_SERVER` | Your Hostinger FTP server (e.g., `srv1540-files.hstgr.io`) |
-| `FTP_USERNAME` | Your Hostinger FTP username |
-| `FTP_PASSWORD` | Your Hostinger FTP password |
+| Secret Name    | Description                                                |
+| -------------- | ---------------------------------------------------------- |
+| `FTP_SERVER`   | Your Hostinger FTP server (e.g., `srv1540-files.hstgr.io`) |
+| `FTP_USERNAME` | Your Hostinger FTP username                                |
+| `FTP_PASSWORD` | Your Hostinger FTP password                                |
 
 ### Deployment Process
 
