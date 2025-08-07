@@ -1,0 +1,51 @@
+name: SSH Deploy to Hostinger
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - dev
+      - production
+  workflow_dispatch: # Manual trigger
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Fetch all history for all branches and tags
+      
+      - name: Setup SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+          config: |
+            Host hostinger
+              HostName 157.173.209.34
+              User u142041678
+              Port 65002
+              StrictHostKeyChecking accept-new
+      
+      - name: Deploy to Hostinger via SSH
+        run: |
+          echo "Deploying to Hostinger server..."
+          
+          # Check if the remote directory exists and has Git initialized
+          ssh hostinger "[ -d '/home/u142041678/domains/moahalksa.com/public_html/wp-content/themes/moahal/.git' ] && echo 'Git repo exists' || echo 'No Git repo'"
+          
+          # Set Git deployment commands
+          if ssh hostinger "[ -d '/home/u142041678/domains/moahalksa.com/public_html/wp-content/themes/moahal/.git' ]"; then
+            # If Git is already initialized, pull changes
+            ssh hostinger "cd /home/u142041678/domains/moahalksa.com/public_html/wp-content/themes/moahal && git fetch --all && git checkout ${GITHUB_REF#refs/heads/} && git pull origin ${GITHUB_REF#refs/heads/}"
+          else
+            # If no Git, clone the repository
+            ssh hostinger "mkdir -p /home/u142041678/domains/moahalksa.com/public_html/wp-content/themes/moahal"
+            ssh hostinger "cd /home/u142041678/domains/moahalksa.com/public_html/wp-content/themes/moahal && git clone --branch ${GITHUB_REF#refs/heads/} https://github.com/Nehal-Mahdy/Moahal.git ."
+          fi
+          
+          echo "Deployment completed!"

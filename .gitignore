@@ -35,6 +35,15 @@ doc/
 .env.*
 !.env.example
 
+# SSH and deployment related
+.ssh/
+id_*
+*.pem
+*.key
+known_hosts
+.ssh-deploy-key
+deploy_key
+
 # Build files that shouldn't be in the repo
 .cache/
 dist/
