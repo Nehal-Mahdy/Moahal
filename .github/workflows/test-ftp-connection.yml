@@ -1,20 +1,20 @@
 name: Test FTP Connection
 
 on:
-  workflow_dispatch:  # Manual trigger
+  workflow_dispatch: # Manual trigger
 
 jobs:
   test-connection:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      
+
       - name: Create test file
         run: |
           echo "This is a test file for FTP connection $(date)" > test-connection.txt
-      
+
       - name: Test FTP Connection
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
@@ -22,9 +22,10 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./
-          server-dir: /public_html/wp-content/themes/moahal/
+          server-dir: /domains/moahalksa.com/public_html/wp-content/themes/moahal/
           include: |
             test-connection.txt
           log-level: verbose
-          timeout: 180000
+          timeout: 60000
           protocol: ftp
+          port: 21
