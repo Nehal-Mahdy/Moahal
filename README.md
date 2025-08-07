@@ -20,6 +20,28 @@ For the deployment pipeline to work, you need to add the following secrets to yo
 | `FTP_USERNAME` | Your Hostinger FTP username                                |
 | `FTP_PASSWORD` | Your Hostinger FTP password                                |
 
+### Troubleshooting Deployment Issues
+
+If you encounter deployment issues, try the following steps:
+
+1. **Connection Timeout**: 
+   - Check if your FTP server details are correct in GitHub Secrets
+   - Make sure your hosting server allows FTP connections from external IPs
+   - Try running the test-ftp-connection.yml workflow to diagnose connection issues
+
+2. **SFTP vs FTP**: 
+   - Some hosting providers only support SFTP instead of FTP
+   - If using SFTP, change the protocol in the workflow file to `sftp`
+
+3. **Server Directory Path**: 
+   - Verify that the server-dir path is correct: `/public_html/wp-content/themes/moahal/`
+   - Incorrect path might cause deployment failures
+
+4. **Firewall Issues**: 
+   - Contact your hosting provider to ensure GitHub Actions IPs are not blocked
+   - Check if port 21 (for FTP) or port 22 (for SFTP) is open
+| `FTP_PASSWORD` | Your Hostinger FTP password                                |
+
 ### Deployment Process
 
 1. Make changes to your code

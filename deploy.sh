@@ -1,15 +1,27 @@
 #!/bin/bash
 
 # Moahal theme deployment script
-# This script helps deploy the theme to Hostinger manually
+# This script helps deploy the theme to Hostinger manually when GitHub Actions fails
 
 echo "Moahal Theme Manual Deployment Script"
 echo "====================================="
 
+# Default protocol is FTP
+PROTOCOL="ftp"
+
+# Check if protocol is specified
+if [ "$1" = "--sftp" ]; then
+  PROTOCOL="sftp"
+  shift
+fi
+
 # Check if FTP credentials are provided
 if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ]; then
-  echo "Usage: ./deploy.sh <ftp_server> <ftp_username> <ftp_password> <remote_dir>"
-  echo "Example: ./deploy.sh ftp.moahalksa.com username password /public_html/wp-content/themes/moahal/"
+  echo "Usage: ./deploy.sh [--sftp] <server> <username> <password> <remote_dir>"
+  echo "  --sftp : Use SFTP instead of FTP (optional)"
+  echo "Examples:"
+  echo "  FTP:  ./deploy.sh ftp.moahalksa.com username password /public_html/wp-content/themes/moahal/"
+  echo "  SFTP: ./deploy.sh --sftp ftp.moahalksa.com username password /public_html/wp-content/themes/moahal/"
   exit 1
 fi
 
@@ -49,10 +61,51 @@ rsync -av --exclude=".git" \
   --exclude=".DS_Store" \
   ./ $TEMP_DIR/
 
-# Deploy to FTP server
-echo "Deploying to Hostinger via FTP..."
+# Deploy to server
 cd $TEMP_DIR
-ncftpput -R -v -u "$FTP_USERNAME" -p "$FTP_PASSWORD" $FTP_SERVER $REMOTE_DIR .
+
+if [ "$PROTOCOL" = "sftp" ]; then
+  echo "Deploying to Hostinger via SFTP..."
+  
+  # Using sshpass and sftp for SFTP transfer
+  # Check if sshpass is installed
+  if ! command -v sshpass &> /dev/null; then
+    echo "Error: sshpass is not installed. Please install it first."
+    echo "On Ubuntu/Debian: sudo apt-get install sshpass"
+    echo "On macOS: brew install hudochenkov/sshpass/sshpass"
+    exit 1
+  fi
+  
+  # Create a temporary SFTP batch file
+  SFTP_COMMANDS=$(mktemp)
+  echo "cd $REMOTE_DIR" > $SFTP_COMMANDS
+  echo "mput -r *" >> $SFTP_COMMANDS
+  echo "bye" >> $SFTP_COMMANDS
+  
+  # Execute SFTP transfer
+  sshpass -p "$FTP_PASSWORD" sftp -o StrictHostKeyChecking=no -b $SFTP_COMMANDS "$FTP_USERNAME@$FTP_SERVER"
+  
+  # Clean up
+  rm $SFTP_COMMANDS
+else
+  echo "Deploying to Hostinger via FTP..."
+  
+  # Check if lftp is installed (more reliable than ncftpput)
+  if command -v lftp &> /dev/null; then
+    # Using lftp (more modern and reliable)
+    lftp -c "set ftp:ssl-allow no; \
+             open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER; \
+             lcd .; \
+             cd $REMOTE_DIR; \
+             mirror --reverse \
+                   --delete \
+                   --verbose \
+                   ./ ./"
+  else
+    # Fallback to ncftpput if available
+    ncftpput -R -v -u "$FTP_USERNAME" -p "$FTP_PASSWORD" $FTP_SERVER $REMOTE_DIR .
+  fi
+fi
 
 # Clean up
 echo "Cleaning up..."
