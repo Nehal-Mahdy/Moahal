@@ -1,0 +1,99 @@
+name: Auto Deploy to Hostinger
+
+on:
+  push:
+    branches:
+      - dev # This workflow will only run when you push to the dev branch
+  workflow_dispatch: # Manual trigger option
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Fetch all history for proper deployment
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+          extensions: mbstring, intl, gd, xml, zip
+          tools: composer
+
+      - name: Install dependencies
+        run: |
+          if [ -f "composer.json" ]; then
+            composer install --no-dev --optimize-autoloader
+          fi
+
+      - name: Build assets (if using npm/yarn)
+        run: |
+          if [ -f "package.json" ]; then
+            npm install
+            npm run build
+          fi
+
+      # Primary deployment method using FTP
+      - name: Deploy to Hostinger via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ftp.moahalksa.com
+          username: u142041678.moehl
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./
+          server-dir: /domains/moahalksa.com/public_html/wp-content/themes/moahal/
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git/**
+            **/.github/**
+            **/node_modules/**
+            .gitignore
+            README.md
+            package-lock.json
+            yarn.lock
+            .env
+            .env.example
+            .DS_Store
+            deploy.sh
+            deploy-windows.bat
+          timeout: 60000
+          protocol: ftp
+          log-level: verbose
+
+      # Fallback deployment method using lftp if FTP fails
+      - name: Fallback - Deploy using lftp
+        if: failure()
+        run: |
+          echo "Primary deployment method failed, trying fallback using lftp..."
+          sudo apt-get update
+          sudo apt-get install -y lftp
+
+          # Using lftp for deployment
+          lftp -c "set ftp:ssl-allow no; \
+                  set net:timeout 15; \
+                  set net:max-retries 3; \
+                  set net:reconnect-interval-base 5; \
+                  open -u u142041678.moehl,${{ secrets.FTP_PASSWORD }} ftp.moahalksa.com; \
+                  lcd .; \
+                  cd /domains/moahalksa.com/public_html/wp-content/themes/moahal; \
+                  mirror --reverse \
+                        --delete \
+                        --exclude-glob .git/ \
+                        --exclude-glob .github/ \
+                        --exclude-glob node_modules/ \
+                        --exclude-glob deploy*.* \
+                        --verbose \
+                        --parallel=1 \
+                        ./ ./"
+
+      - name: Deployment status
+        run: |
+          if [ $? -eq 0 ]; then
+            echo "✅ Deployment successful"
+          else
+            echo "❌ Deployment failed. Check logs for details."
+            exit 1
+          fi
