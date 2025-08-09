@@ -3,8 +3,8 @@ name: Auto Deploy to Hostinger
 on:
   push:
     branches:
-      - dev # This workflow will only run when you push to the dev branch
-  workflow_dispatch: # Manual trigger option
+      - dev
+  workflow_dispatch:
 
 jobs:
   deploy:
