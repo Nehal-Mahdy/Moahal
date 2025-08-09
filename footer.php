@@ -9,6 +9,9 @@
 </main>
 
 </div>
+<?php
+echo 'testing deployment';
+?>
 <footer class="bg-[#EBF1FA]  ">
   <div class="mx-auto max-w-screen-xl space-y-8 mob:px-4 pt-16 pb-16 mob:pb-0 mob:pt-8 mintab:px-6 md:space-y-16 px-16">
     <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
@@ -41,7 +44,7 @@
           d="M16 2.66699C19.1826 2.66699 22.2348 3.93127 24.4853 6.18171C26.7357 8.43215 28 11.4844 28 14.667C28 18.7657 25.7653 22.1203 23.4107 24.527C22.2342 25.7164 20.9506 26.7948 19.576 27.7483L19.008 28.135L18.7413 28.3123L18.2387 28.6323L17.7907 28.9057L17.236 29.2283C16.8595 29.4432 16.4335 29.5562 16 29.5562C15.5665 29.5562 15.1405 29.4432 14.764 29.2283L14.2093 28.9057L13.516 28.479L13.26 28.3123L12.7133 27.9483C11.2304 26.945 9.8492 25.7991 8.58933 24.527C6.23467 22.119 4 18.7657 4 14.667C4 11.4844 5.26428 8.43215 7.51472 6.18171C9.76515 3.93127 12.8174 2.66699 16 2.66699ZM16 10.667C15.4747 10.667 14.9546 10.7705 14.4693 10.9715C13.984 11.1725 13.543 11.4671 13.1716 11.8386C12.8001 12.21 12.5055 12.651 12.3045 13.1363C12.1035 13.6216 12 14.1417 12 14.667C12 15.1923 12.1035 15.7124 12.3045 16.1977C12.5055 16.683 12.8001 17.124 13.1716 17.4954C13.543 17.8669 13.984 18.1615 14.4693 18.3625C14.9546 18.5635 15.4747 18.667 16 18.667C17.0609 18.667 18.0783 18.2456 18.8284 17.4954C19.5786 16.7453 20 15.7279 20 14.667C20 13.6061 19.5786 12.5887 18.8284 11.8386C18.0783 11.0884 17.0609 10.667 16 10.667Z"
           fill="#3773C9" />
       </svg>
-  
+
       <p class="text-[#19345A] text-[20px] mob:text-[18px] font-medium w-3/5 mob:w-full">
       AL NADHEEM DISTR, RIYDAH ,SAUDI ARABIA
           </p>
@@ -52,13 +55,13 @@
           d="M24.4372 30.0004C23.2172 30.0004 21.5035 29.5591 18.9372 28.1254C15.8166 26.3754 13.4028 24.7598 10.2991 21.6641C7.3066 18.6735 5.85035 16.7373 3.81222 13.0285C1.50972 8.84102 1.90222 6.64602 2.34097 5.7079C2.86347 4.58665 3.63472 3.91602 4.6316 3.2504C5.19782 2.87942 5.79702 2.56141 6.4216 2.3004C6.4841 2.27352 6.54222 2.2479 6.5941 2.22477C6.90347 2.0854 7.37222 1.87477 7.96597 2.09977C8.36222 2.24852 8.71597 2.5529 9.26972 3.09977C10.4053 4.21977 11.9572 6.71415 12.5297 7.93915C12.9141 8.76477 13.1685 9.30977 13.1691 9.92102C13.1691 10.6366 12.8091 11.1885 12.3722 11.7841C12.2903 11.896 12.2091 12.0029 12.1303 12.1066C11.6547 12.7316 11.5503 12.9123 11.6191 13.2348C11.7585 13.8829 12.7978 15.8123 14.506 17.5166C16.2141 19.221 18.0878 20.1948 18.7385 20.3335C19.0747 20.4054 19.2591 20.2966 19.9041 19.8041C19.9966 19.7335 20.0916 19.6604 20.191 19.5873C20.8572 19.0916 21.3835 18.741 22.0822 18.741H22.086C22.6941 18.741 23.2147 19.0048 24.0772 19.4398C25.2022 20.0073 27.7716 21.5391 28.8985 22.676C29.4466 23.2285 29.7522 23.581 29.9016 23.9766C30.1266 24.5723 29.9147 25.0391 29.7766 25.3516C29.7535 25.4035 29.7278 25.4604 29.701 25.5235C29.4379 26.147 29.118 26.7449 28.7453 27.3098C28.081 28.3035 27.4078 29.0729 26.2841 29.596C25.7071 29.869 25.0755 30.0073 24.4372 30.0004Z"
           fill="#3773C9" />
       </svg>
-  
+
       <p class="text-[#19345A] text-[20px] mob:text-[18px] font-medium w-3/5 mob:w-full">
         +966 55 123 4567
       </p>
     </div>
-  
-  
+
+
     <div class="flex flex-row gap-3 items-center ">
       <svg xmlns="http://www.w3.org/2000/svg" class="md:w-8 md:h-8 w-6 h-6" viewBox="0 0 32 32" fill="none">
         <path
@@ -68,21 +71,21 @@
           d="M25.3341 5.33301C26.7741 5.33301 28.0367 6.09301 28.7407 7.23567L16.0007 15.729L3.26074 7.23567C3.59513 6.69277 4.05446 6.23768 4.60044 5.90833C5.14641 5.57898 5.76321 5.38492 6.39941 5.34234L6.66741 5.33301H25.3341Z"
           fill="#3773C9" />
       </svg>
-  
+
       <p class="text-[#19345A] text-[20px] mob:text-[18px] font-medium w-3/5 mob:w-full">
         info@moahal.com
       </p>
     </div>
-  
+
   </div>
         </div>
-       
 
 
-        
-      
+
+
+
     <div class="pt-8 flex flex-row gap-[22px]  mob:gap-4">
-    
+
       <a href="https://www.snapchat.com/add/ecommercegroup?share_id=ObOHFWWWeHE&locale=en-GB" target="_blank" class="">
         <svg xmlns="http://www.w3.org/2000/svg" class="md:w-12 md:h-12 w-8 h-8" viewBox="0 0 50 51" fill="none">
           <path
@@ -97,7 +100,7 @@
         </svg>
       </a>
       <a href="https://www.tiktok.com/@moahal.import" target="_blank" class="">
-    
+
         <svg xmlns="http://www.w3.org/2000/svg" class="md:w-12 md:h-12 w-8 h-8" viewBox="0 0 50 51" fill="none">
           <path
             d="M25.0569 0.5H24.9431C11.1674 0.5 0 11.6674 0 25.4431V25.5569C0 39.3326 11.1674 50.5 24.9431 50.5H25.0569C38.8326 50.5 50 39.3326 50 25.5569V25.4431C50 11.6674 38.8326 0.5 25.0569 0.5Z"
@@ -138,7 +141,7 @@
           </defs>
         </svg>
       </a>
-    
+
       <a href="#" class="">
         <svg xmlns="http://www.w3.org/2000/svg" class="md:w-12 md:h-12 w-8 h-8" viewBox="0 0 50 51" fill="none">
           <path
@@ -149,7 +152,7 @@
             fill="white" />
         </svg>
       </a>
-    
+
       <a href="https://api.whatsapp.com/message/YAUXKFUB5U5AJ1?autoload=1&app_absent=0" target="_blank" class="">
         <svg xmlns="http://www.w3.org/2000/svg" class="md:w-12 md:h-12 w-8 h-8" viewBox="0 0 50 51" fill="none">
           <path
@@ -163,9 +166,9 @@
             fill="#FDFDFD" />
         </svg>
       </a>
-    
+
       <a href="#" target="_blank" class="">
-       
+
         <svg class="md:w-12 md:h-12 w-8 h-8" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 473.931 473.931" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <circle style="fill:#4A86C5;" cx="236.966" cy="236.966" r="236.966"></circle> <path style="fill:#3D80B2;" d="M404.518,69.383c92.541,92.549,92.549,242.59,0,335.138c-92.541,92.541-242.593,92.541-335.134,0 L404.518,69.383z"></path> <path style="fill:#4A86C5;" d="M462.646,309.275c0.868-2.713,1.658-5.456,2.432-8.206 C464.307,303.823,463.496,306.562,462.646,309.275z"></path> <g> <polygon style="fill:#377CA5;" points="465.097,301.017 465.097,301.017 465.082,301.07 "></polygon> <path style="fill:#377CA5;" d="M465.097,301.017L336.721,172.641l-29.204,29.204l-20.303-20.303l-16.946,16.946L171.032,99.25 l-6.155-2.346l-38.08,38.08l45.968,45.964l-44.998,44.995l43.943,43.943l-48.048,48.052L276.475,470.59 c87.984-14.78,159.5-77.993,186.175-161.311c0.849-2.716,1.658-5.452,2.432-8.206C465.082,301.055,465.09,301.032,465.097,301.017z "></path> </g> <path style="fill:#FFFFFF;" d="M358.565,230.459v87.883h-50.944v-81.997c0-20.595-7.375-34.656-25.811-34.656 c-14.084,0-22.458,9.474-26.147,18.634c-1.343,3.278-1.688,7.835-1.688,12.423v85.593H203.02c0,0,0.681-138.875,0-153.259h50.952 V186.8c-0.094,0.161-0.236,0.34-0.329,0.498h0.329V186.8c6.769-10.425,18.862-25.324,45.923-25.324 C333.432,161.479,358.565,183.384,358.565,230.459z M149.7,91.198c-17.429,0-28.838,11.439-28.838,26.473 c0,14.716,11.072,26.495,28.164,26.495h0.344c17.766,0,28.823-11.779,28.823-26.495C177.857,102.636,167.137,91.198,149.7,91.198z M123.886,318.341h50.944V165.083h-50.944V318.341z"></path> </g></svg>
 
       </a>
@@ -185,9 +188,9 @@
 </p>
           <ul class="mt-6 space-y-4 text-[20px] text-[#445A73]">
                 <?php
-                    $menu_name = 'Primary Menu'; 
+                    $menu_name = 'Primary Menu';
                     $menu_items = wp_get_nav_menu_items($menu_name);
-                    
+
                     foreach ($menu_items as $item) {
                         echo '<li><a href="' . esc_attr($item->url) . '" class="footer-link transition hover:opacity-75">' . esc_html($item->title) . '</a></li>';
                     }
@@ -196,41 +199,41 @@
         </div>
 
         <div>
-        
+
         </div>
 
         <div>
             <div>
               <p class="mob:hidden text-[22px] md:text-[30px] text-[#19345A] font-bold leading-[150%]">
-            
+
                 خدماتنا
               </p>
               <ul class="mob:hidden mt-6 space-y-4 text-[20px] text-[#445A73]">
                 <li>
                   <a href="#samples" class="service-link transition hover:opacity-75">طلب العينات </a>
                 </li>
-            
+
                 <li>
                   <a href="#visits" class="service-link transition hover:opacity-75">زيارة المصانع </a>
                 </li>
-            
+
                 <li>
                   <a href="#imports" class="service-link transition hover:opacity-75"> استيراد المنتجات </a>
                 </li>
-            
+
                 <li>
                   <a href="#customs" class="service-link transition hover:opacity-75"> التخليص الجمركي</a>
                 </li>
-            
+
                 <li>
                   <a href="#certificates" class="service-link transition hover:opacity-75">  الشهادات والمواصفات شهادات سابر والمطابقة </a>
                 </li>
-            
-            
+
+
                 <li>
                   <a href="#transfer" class="service-link transition hover:opacity-75"> النقل الداخلي</a>
                 </li>
-            
+
                 <li>
                   <a href="#prices" class="service-link transition hover:opacity-75"> خدمة عروض الأسعار </a>
                 </li>
@@ -244,7 +247,7 @@
                   <a href="#shipping" class="service-link transition hover:opacity-75">خدمة الشحن الدولي   </a>
                 </li>
 
-               
+
               </ul>
             </div>
         </div>
@@ -257,7 +260,7 @@
     <div class="container mx-auto px-4 py-3 text-center">
       <p class="text-[22px] mob:text-lg text-[#19345A]"> © 2024 مؤهل. جميع الحقوق محفوظة </p>
     </div>
-    
+
   </div>
 </footer>
 
