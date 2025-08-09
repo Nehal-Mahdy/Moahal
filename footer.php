@@ -10,7 +10,7 @@
 
 </div>
 <?php
-echo 'testing deployment';
+echo '<div style="background: red; color: white; padding: 10px; text-align: center; font-size: 18px;">AUTO DEPLOYMENT WORKING - ' . date('Y-m-d H:i:s') . '</div>';
 ?>
 <footer class="bg-[#EBF1FA]  ">
   <div class="mx-auto max-w-screen-xl space-y-8 mob:px-4 pt-16 pb-16 mob:pb-0 mob:pt-8 mintab:px-6 md:space-y-16 px-16">

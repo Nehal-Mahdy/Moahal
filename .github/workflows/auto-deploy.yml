@@ -44,11 +44,10 @@ jobs:
           username: u142041678
           password: q!!XE6HHYTqjbAL
           local-dir: ./
-          server-dir: /public_html/wp-content/themes/moahal/
+          server-dir: /domains/moahalksa.com/public_html/wp-content/themes/moahal/
           dangerous-clean-slate: false
           exclude: |
             **/.git/**
-            **/.github/**
             **/node_modules/**
             .gitignore
             README.md
@@ -57,8 +56,6 @@ jobs:
             .env
             .env.example
             .DS_Store
-            deploy.sh
-            deploy-windows.bat
           timeout: 60000
           protocol: ftp
           log-level: verbose
@@ -78,7 +75,7 @@ jobs:
                   set net:reconnect-interval-base 5; \
                   open -u u142041678,q!!XE6HHYTqjbAL 157.173.209.34; \
                   lcd .; \
-                  cd /public_html/wp-content/themes/moahal; \
+                  cd /domains/moahalksa.com/public_html/wp-content/themes/moahal; \
                   mirror --reverse \
                         --delete \
                         --exclude-glob .git/ \
