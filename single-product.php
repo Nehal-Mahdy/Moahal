@@ -114,7 +114,7 @@
                     <div class="flex flex-row items-center gap-2">
 
                         <img class="w-6 h-6"
-                            src="<?php echo home_url(); ?>/wp-content/uploads/2025/07/1142117-Photoroom-1-1.png" alt="">
+                            src="<?php echo home_url(); ?>/wp-content/uploads/2025/08/1142117-Photoroom-1-1.png" alt="">
 
                         <span class="text-lg text-[#19345A] font-medium">
                             مطابق لسابر
