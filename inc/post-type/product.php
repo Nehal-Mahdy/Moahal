@@ -45,6 +45,42 @@ function create_product_post_type() {
 }
 add_action('init', 'create_product_post_type');
 
+// Register Product Categories Taxonomy
+function create_product_categories_taxonomy() {
+    register_taxonomy(
+        'product_category',
+        'product',
+        array(
+            'labels' => array(
+                'name' => 'Product Categories',
+                'singular_name' => 'Product Category',
+                'search_items' => 'Search Categories',
+                'all_items' => 'All Categories',
+                'parent_item' => 'Parent Category',
+                'parent_item_colon' => 'Parent Category:',
+                'edit_item' => 'Edit Category',
+                'update_item' => 'Update Category',
+                'add_new_item' => 'Add New Category',
+                'new_item_name' => 'New Category Name',
+                'menu_name' => 'Categories',
+            ),
+            'hierarchical' => true, // Like categories (not tags)
+            'public' => true,
+            'show_ui' => true,
+            'show_admin_column' => true,
+            'show_in_nav_menus' => true,
+            'show_in_rest' => true,
+            'show_tagcloud' => true,
+            'rewrite' => array(
+                'slug' => 'product-category',
+                'with_front' => false,
+                'hierarchical' => true
+            ),
+        )
+    );
+}
+add_action('init', 'create_product_categories_taxonomy');
+
 // Force flush rewrite rules when needed
 function moahal_force_flush_rewrites() {
     if (get_option('moahal_flush_rewrite_rules', false)) {
@@ -237,6 +273,10 @@ function remove_conflicting_product_meta_boxes() {
 
         // Re-add the publish meta box to the side where it belongs
         add_meta_box('submitdiv', __('Publish'), 'post_submit_meta_box', 'product', 'side', 'high');
+
+        // Move product categories to a more visible position
+        remove_meta_box('product_categorydiv', 'product', 'side');
+        add_meta_box('product_categorydiv', 'Product Categories', 'post_categories_meta_box', 'product', 'side', 'high', array('taxonomy' => 'product_category'));
     }
 }
 add_action('add_meta_boxes', 'remove_conflicting_product_meta_boxes', 99);
@@ -1071,6 +1111,250 @@ function moahal_flush_rewrites() {
     flush_rewrite_rules();
 }
 add_action('after_switch_theme', 'moahal_flush_rewrites');
+
+// Add duplicate product functionality
+function add_duplicate_product_action($actions, $post) {
+    if ($post->post_type === 'product' && current_user_can('edit_posts')) {
+        $duplicate_url = wp_nonce_url(
+            admin_url('admin.php?action=duplicate_product&post=' . $post->ID),
+            'duplicate_product_' . $post->ID
+        );
+
+        $actions['duplicate'] = sprintf(
+            '<a href="%s" title="%s">%s</a>',
+            $duplicate_url,
+            esc_attr__('Duplicate this product'),
+            __('Duplicate')
+        );
+    }
+    return $actions;
+}
+add_filter('post_row_actions', 'add_duplicate_product_action', 10, 2);
+
+// Handle duplicate product action
+function handle_duplicate_product_action() {
+    if (!isset($_GET['action']) || $_GET['action'] !== 'duplicate_product') {
+        return;
+    }
+
+    if (!isset($_GET['post']) || !is_numeric($_GET['post'])) {
+        wp_die('Invalid product ID.');
+    }
+
+    $post_id = intval($_GET['post']);
+
+    if (!wp_verify_nonce($_GET['_wpnonce'], 'duplicate_product_' . $post_id)) {
+        wp_die('Security check failed.');
+    }
+
+    if (!current_user_can('edit_posts')) {
+        wp_die('You do not have permission to duplicate products.');
+    }
+
+    $original_post = get_post($post_id);
+
+    if (!$original_post || $original_post->post_type !== 'product') {
+        wp_die('Invalid product.');
+    }
+
+    // Create the duplicate post
+    $new_post_args = array(
+        'post_title'     => $original_post->post_title . ' (Copy)',
+        'post_content'   => $original_post->post_content,
+        'post_excerpt'   => $original_post->post_excerpt,
+        'post_status'    => 'draft', // Set as draft for review
+        'post_type'      => $original_post->post_type,
+        'post_author'    => get_current_user_id(),
+        'post_parent'    => $original_post->post_parent,
+        'menu_order'     => $original_post->menu_order
+    );
+
+    $new_post_id = wp_insert_post($new_post_args);
+
+    if (is_wp_error($new_post_id)) {
+        wp_die('Failed to duplicate product: ' . $new_post_id->get_error_message());
+    }
+
+    // Duplicate all meta data
+    $meta_keys = array(
+        '_product_price',
+        '_factory_name',
+        '_production_video_url',
+        '_whatsapp_number',
+        '_product_gallery',
+        '_product_technical_details',
+        '_product_variations',
+        '_product_shipping_methods',
+        '_product_reviews',
+        '_product_quantity_options',
+        '_product_certificates_gallery'
+    );
+
+    foreach ($meta_keys as $meta_key) {
+        $meta_value = get_post_meta($post_id, $meta_key, true);
+        if (!empty($meta_value)) {
+            update_post_meta($new_post_id, $meta_key, $meta_value);
+        }
+    }
+
+    // Duplicate featured image
+    $featured_image_id = get_post_thumbnail_id($post_id);
+    if ($featured_image_id) {
+        set_post_thumbnail($new_post_id, $featured_image_id);
+    }
+
+    // Duplicate taxonomies (product categories)
+    $taxonomies = array('product_category');
+    foreach ($taxonomies as $taxonomy) {
+        $terms = wp_get_post_terms($post_id, $taxonomy, array('fields' => 'ids'));
+        if (!empty($terms) && !is_wp_error($terms)) {
+            wp_set_post_terms($new_post_id, $terms, $taxonomy);
+        }
+    }
+
+    // Redirect to edit the new product
+    wp_redirect(admin_url('post.php?action=edit&post=' . $new_post_id));
+    exit;
+}
+add_action('admin_action_duplicate_product', 'handle_duplicate_product_action');
+
+// Add duplicate button to product edit page
+function add_duplicate_button_to_product_edit() {
+    global $post;
+
+    if ($post && $post->post_type === 'product' && $post->post_status !== 'auto-draft') {
+        $duplicate_url = wp_nonce_url(
+            admin_url('admin.php?action=duplicate_product&post=' . $post->ID),
+            'duplicate_product_' . $post->ID
+        );
+        ?>
+        <script>
+        jQuery(document).ready(function($) {
+            // Add duplicate button next to the "Move to Trash" button
+            $('#delete-action').after(
+                '<div id="duplicate-action">' +
+                '<a class="submitduplicate duplication" href="<?php echo esc_url($duplicate_url); ?>" style="color: #2271b1; text-decoration: none;">' +
+                'Duplicate Product' +
+                '</a>' +
+                '</div>'
+            );
+
+            // Add some spacing
+            $('#duplicate-action').css({
+                'margin-top': '10px',
+                'padding-top': '10px',
+                'border-top': '1px solid #ddd'
+            });
+        });
+        </script>
+        <?php
+    }
+}
+add_action('admin_footer-post.php', 'add_duplicate_button_to_product_edit');
+
+// Add bulk duplicate action
+function add_bulk_duplicate_action($bulk_actions) {
+    $bulk_actions['duplicate_products'] = 'Duplicate Selected Products';
+    return $bulk_actions;
+}
+add_filter('bulk_actions-edit-product', 'add_bulk_duplicate_action');
+
+// Handle bulk duplicate action
+function handle_bulk_duplicate_action($redirect_to, $doaction, $post_ids) {
+    if ($doaction !== 'duplicate_products') {
+        return $redirect_to;
+    }
+
+    if (!current_user_can('edit_posts')) {
+        return $redirect_to;
+    }
+
+    $duplicated_count = 0;
+
+    foreach ($post_ids as $post_id) {
+        $original_post = get_post($post_id);
+
+        if (!$original_post || $original_post->post_type !== 'product') {
+            continue;
+        }
+
+        // Create the duplicate post
+        $new_post_args = array(
+            'post_title'     => $original_post->post_title . ' (Copy)',
+            'post_content'   => $original_post->post_content,
+            'post_excerpt'   => $original_post->post_excerpt,
+            'post_status'    => 'draft',
+            'post_type'      => $original_post->post_type,
+            'post_author'    => get_current_user_id(),
+            'post_parent'    => $original_post->post_parent,
+            'menu_order'     => $original_post->menu_order
+        );
+
+        $new_post_id = wp_insert_post($new_post_args);
+
+        if (is_wp_error($new_post_id)) {
+            continue;
+        }
+
+        // Duplicate all meta data
+        $meta_keys = array(
+            '_product_price',
+            '_factory_name',
+            '_production_video_url',
+            '_whatsapp_number',
+            '_product_gallery',
+            '_product_technical_details',
+            '_product_variations',
+            '_product_shipping_methods',
+            '_product_reviews',
+            '_product_quantity_options',
+            '_product_certificates_gallery'
+        );
+
+        foreach ($meta_keys as $meta_key) {
+            $meta_value = get_post_meta($post_id, $meta_key, true);
+            if (!empty($meta_value)) {
+                update_post_meta($new_post_id, $meta_key, $meta_value);
+            }
+        }
+
+        // Duplicate featured image
+        $featured_image_id = get_post_thumbnail_id($post_id);
+        if ($featured_image_id) {
+            set_post_thumbnail($new_post_id, $featured_image_id);
+        }
+
+        // Duplicate taxonomies (product categories)
+        $taxonomies = array('product_category');
+        foreach ($taxonomies as $taxonomy) {
+            $terms = wp_get_post_terms($post_id, $taxonomy, array('fields' => 'ids'));
+            if (!empty($terms) && !is_wp_error($terms)) {
+                wp_set_post_terms($new_post_id, $terms, $taxonomy);
+            }
+        }
+
+        $duplicated_count++;
+    }
+
+    // Add success notice
+    $redirect_to = add_query_arg('bulk_duplicated', $duplicated_count, $redirect_to);
+    return $redirect_to;
+}
+add_filter('handle_bulk_actions-edit-product', 'handle_bulk_duplicate_action', 10, 3);
+
+// Display admin notice for bulk duplicate
+function bulk_duplicate_admin_notice() {
+    if (!empty($_REQUEST['bulk_duplicated'])) {
+        $count = intval($_REQUEST['bulk_duplicated']);
+        printf(
+            '<div id="message" class="updated notice is-dismissible"><p>' .
+            _n('Successfully duplicated %d product.', 'Successfully duplicated %d products.', $count) .
+            ' All duplicated products have been saved as drafts for review.</p></div>',
+            $count
+        );
+    }
+}
+add_action('admin_notices', 'bulk_duplicate_admin_notice');
 
 // Add products link to admin bar
 function add_products_admin_bar_link($wp_admin_bar) {
